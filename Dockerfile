@@ -12,6 +12,17 @@ RUN rpm -ivh jdk-8u144-linux-x64.rpm && \
 ENV JAVA_HOME="/usr/java/jdk1.8.0_144"  
 ENV JRE_HOME="/usr/java/jdk1.8.0_144/jre"
 
+#MAVEN INSTALLATION
+ADD http://apache.mirrors.pair.com/maven/maven-3/3.5.0/binaries/apache-maven-3.5.0-bin.tar.gz /
+RUN tar -xvf apache-maven-3.5.0-bin.tar.gz && \
+    mv apache-maven-3.5.0 /opt/maven && \
+	chmod 755 /opt/maven && \
+    ln -s /opt/maven/bin/mvn /usr/bin/mvn && \
+	wget https://s3.amazonaws.com/box-software-all/maven.sh && \
+	mv maven.sh /etc/profile.d && \
+    chmod 755 /etc/profile.d/maven.sh && \
+    rm -fr apache-maven-3.5.0-bin.tar.gz	
+
 
 # Grater the RUN Grater the number of layers in an image so use as much less runs as possible 
 RUN cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original && \
