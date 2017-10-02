@@ -24,9 +24,12 @@ RUN tar -xvf apache-maven-3.5.0-bin.tar.gz && \
     rm -fr apache-maven-3.5.0-bin.tar.gz	
 	
 #JENKINS INSTALLATION
+ADD https://s3.amazonaws.com/box-software-all/jenkins /
 RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo && \
     rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key && \
-	yum install -y jenkins 
+	yum install -y jenkins && \
+	rm -fr /etc/sysconfig/jenkins && \
+	mv /jenkins /etc/sysconfig
 
 
 
