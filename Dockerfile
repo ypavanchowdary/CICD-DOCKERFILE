@@ -22,6 +22,12 @@ RUN tar -xvf apache-maven-3.5.0-bin.tar.gz && \
 	mv maven.sh /etc/profile.d && \
     chmod 755 /etc/profile.d/maven.sh && \
     rm -fr apache-maven-3.5.0-bin.tar.gz	
+	
+#JENKINS INSTALLATION
+RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stable/jenkins.repo && \
+    rpm --import http://pkg.jenkins-ci.org/redhat-stable/jenkins-ci.org.key && \
+	yum install -y jenkins 
+
 
 
 # Grater the RUN Grater the number of layers in an image so use as much less runs as possible 
