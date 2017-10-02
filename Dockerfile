@@ -31,7 +31,14 @@ RUN wget -O /etc/yum.repos.d/jenkins.repo http://pkg.jenkins-ci.org/redhat-stabl
 	rm -fr /etc/sysconfig/jenkins && \
 	mv /jenkins /etc/sysconfig
 
-
+#TOMCAT 9 INSTALLATION
+ADD http://mirror.reverse.net/pub/apache/tomcat/tomcat-9/v9.0.1/bin/apache-tomcat-9.0.1.tar.gz /
+ADD https://s3.amazonaws.com/box-software-all/tomcat-users.xml /
+RUN tar -xvf apache-tomcat-9.0.1.tar.gz && \ 
+    mv apache-tomcat-9.0.1 /opt/tomcat && \
+	rm -fr /apache-tomcat-9.0.1.tar.gz && \
+	rm -fr /opt/tomcat/conf/tomcat-users.xml && \
+	mv /tomcat-users.xml /opt/tomcat/conf 
 
 # Grater the RUN Grater the number of layers in an image so use as much less runs as possible 
 RUN cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original && \
@@ -43,3 +50,7 @@ RUN cp /etc/ssh/sshd_config /etc/ssh/sshd_config.original && \
 # There should be only 1 CMD for a Docker File	
 CMD ["/usr/sbin/sshd, "-D"]
 EXPOSE 22 
+#TOMCAT 9 PORT
+EXPOSE 8080
+#JENKINS PORT
+EXPOSE 8082
