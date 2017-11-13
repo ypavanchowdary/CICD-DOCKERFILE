@@ -1,6 +1,6 @@
 # CICD-DOCKERFILE
 
-# Min Basics For Docker File Construction
+# Minimum Basics For Docker File Construction
 
 Dockerfile Commands
 
